@@ -1,0 +1,30 @@
+{
+  "name": "asyncflow",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "worker": "node src/worker.js",
+    "dev:worker": "nodemon src/worker.js",
+    "load:test": "autocannon -c 50 -a 1000 -m POST -H content-type=application/json -b '{\"task_type\":\"generate_report\",\"payload\":{\"reportId\":\"load-test\"},\"priority\":3}' http://localhost:3000/jobs"
+  },
+  "author": "Rohan",
+  "license": "ISC",
+  "description": "Distributed background job processing platform built with Node.js, BullMQ, Redis, and PostgreSQL.",
+  "dependencies": {
+    "bullmq": "^5.71.0",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "ioredis": "^5.10.0",
+    "node": "^25.8.1",
+    "pg": "^8.20.0",
+    "redis": "^5.11.0",
+    "sequelize": "^6.37.8",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "autocannon": "^8.0.0",
+    "nodemon": "^3.1.14"
+  }
+}

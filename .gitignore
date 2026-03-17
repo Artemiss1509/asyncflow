@@ -1,0 +1,6 @@
+/.env.example
+/Dockerfile
+/README.md
+/docker-compose.yml
+/node_modules
+/scripts
