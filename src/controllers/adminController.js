@@ -1,4 +1,3 @@
-const { getQueueMetricsSnapshot } = require('../metrics/jobMetrics');
 const { getQueueCounts } = require('../queues/jobQueue');
 const { getFailedQueueCounts } = require('../queues/failedQueue');
 
@@ -7,7 +6,6 @@ exports.getQueueDashboard = async (_req, res, next) => {
     const [jobQueueCounts, failedQueueCounts, metrics] = await Promise.all([
       getQueueCounts(),
       getFailedQueueCounts(),
-      getQueueMetricsSnapshot(),
     ]);
 
     res.json({

@@ -5,23 +5,16 @@ const { initializeDatabase } = require('./config/database');
 const logger = require('./config/logger');
 const jobRoutes = require('./routes/jobRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-const { getPrometheusMetrics } = require('./metrics/jobMetrics');
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
 
 app.use(express.json());
 
-app.get('/health', (_req, res) => {
-  res.json({ status: 'ok' });
-});
 
 app.use('/jobs', jobRoutes);
 app.use('/admin', adminRoutes);
 
-app.get('/metrics', async (_req, res) => {
-  res.type('text/plain').send(await getPrometheusMetrics());
-});
 
 app.use((error, _req, res, _next) => {
   logger.error('Unhandled API error', { message: error.message, stack: error.stack });

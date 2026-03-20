@@ -8,7 +8,6 @@ const redisConnection = require('./config/redis');
 const Job = require('./models/jobModel');
 const failedQueue = require('./queues/failedQueue');
 const { queueName } = require('./queues/jobQueue');
-const { observeJobDuration, incrementFailedJobs, incrementProcessedJobs } = require('./metrics/jobMetrics');
 const emailService = require('./services/emailService');
 const reportService = require('./services/reportService');
 const imageService = require('./services/imageService');
@@ -42,8 +41,6 @@ async function processTask(job) {
       { where: { id: dbJobId } }
     );
 
-    incrementProcessedJobs();
-    observeJobDuration(Date.now() - startedAt);
     logger.info('Job completed', { jobId: job.id, taskType: job.name });
 
     return result;
@@ -109,7 +106,6 @@ async function startWorker() {
         failedAt: new Date().toISOString(),
       });
 
-      incrementFailedJobs();
       logger.error('Job moved to dead letter queue', {
         jobId: job.id,
         taskType: job.name,

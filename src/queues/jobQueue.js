@@ -1,7 +1,7 @@
 const { Queue } = require('bullmq');
 const redisConnection = require('../config/redis');
 
-const queueName = process.env.QUEUE_NAME || 'jobs';
+const queueName = 'jobs';
 
 const jobQueue = new Queue(queueName, {
   connection: redisConnection,
@@ -15,7 +15,7 @@ const jobQueue = new Queue(queueName, {
 });
 
 async function getQueueCounts() {
-  return jobQueue.getJobCounts('waiting', 'active', 'completed', 'failed', 'delayed', 'paused');
+  return jobQueue.getJobCounts();
 }
 
 module.exports = jobQueue;

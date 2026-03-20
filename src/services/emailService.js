@@ -4,6 +4,7 @@ exports.sendEmail = async (payload) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   if (payload.shouldFail) {
+    incrementFailedJobs();
     throw new Error('Email delivery provider rejected the request');
   }
 
