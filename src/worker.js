@@ -73,8 +73,8 @@ async function startWorker() {
     connection: redisConnection,
     concurrency: 5,
     limiter: {
-      max: Number(process.env.JOB_RATE_LIMIT_MAX || 10),
-      duration: Number(process.env.JOB_RATE_LIMIT_DURATION || 1000),
+      max:10,
+      duration: 1000,
     },
   });
 
